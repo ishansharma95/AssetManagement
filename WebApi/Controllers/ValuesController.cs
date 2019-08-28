@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         [Route("Index")]
         public HttpResponseMessage Index()
         {
-            Common common = new Common(assetRep);
+            Common common = new Common();
             if (!Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);

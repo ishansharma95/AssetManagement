@@ -15,10 +15,10 @@ namespace WebApi
     public class Common
     {
         private AssetRepository assetRep;
-        public Common(AssetRepository rep)
-        {
-            assetRep = rep;
-        }
+        //public Common(AssetRepository rep)
+        //{
+        //    assetRep = rep;
+        //}
         public const string containerName = "assets";
         public static string AppendTimeStamp(string fileName)
         {
