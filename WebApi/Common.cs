@@ -45,8 +45,7 @@ namespace WebApi
         }
 
         /// <summary>
-        /// Data is being saved than uploaded to azure and then metadata is updated.
-        /// Data is saved first because I am using azure function which is triggered automatically after entry into azure blob
+        /// uploaded to azure and then metadata is updated.
         /// </summary>
         /// <param name="file"></param>
         /// <param name="fileName"></param>
@@ -66,15 +65,12 @@ namespace WebApi
 
             CloudBlockBlob cloudBlockBlob = blobContainer.GetBlockBlobReference("rawImage/" + fileName);
             cloudBlockBlob.Properties.ContentType = file.ContentType;
-            var id=assetRep.Create(asset);
             using (var s = file.InputStream)
             {
                 cloudBlockBlob.UploadFromStream(s);
             }
             var metaData=SetMetaData(cloudBlockBlob, userMetaData);
-            var obj=assetRep.Get(asset.AssetId);
-            obj.MetaData = metaData;
-            assetRep.Update(obj);
+            
             return new Tuple<CloudBlockBlob, string>(cloudBlockBlob, metaData);
         }
 

@@ -53,6 +53,8 @@ namespace WebApi.Controllers
                     asset.Type = MimeMapping.GetMimeMapping(file.FileName).StartsWith("image/") ? "image" : "video";
                     asset.MetaData = resultAsset.MetaData;
                     var blockBlob = common.UploadFileAsync(file, fileName, resultAsset.MetaData, asset);
+                    asset.MetaData = blockBlob.Item2;
+                    assetRep.Create(asset);
                     return new HttpResponseMessage(HttpStatusCode.Accepted);
                 }
                 else
